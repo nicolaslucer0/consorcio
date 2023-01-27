@@ -1,0 +1,1 @@
+export 'view/rules_page.dart';
