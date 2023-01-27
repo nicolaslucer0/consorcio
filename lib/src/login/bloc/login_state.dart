@@ -1,6 +1,7 @@
 part of 'login_bloc.dart';
 
 class LoginState extends Equatable {
+
   const LoginState({
     this.status = FormzStatus.pure,
     this.username = const Username.pure(),
@@ -25,4 +26,8 @@ class LoginState extends Equatable {
 
   @override
   List<Object> get props => [status, username, password];
+}
+
+class LoginInitState extends LoginState{
+  const LoginInitState();
 }

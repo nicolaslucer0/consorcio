@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
             return LoginBloc(
               authenticationRepository:
                   RepositoryProvider.of<AuthenticationRepository>(context),
-            );
+            )..add(LoginInit());
           },
           child: const LoginForm(),
         ),

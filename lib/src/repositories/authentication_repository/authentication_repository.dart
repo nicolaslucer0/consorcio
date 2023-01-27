@@ -21,6 +21,13 @@ class AuthenticationRepository {
     );
   }
 
+  Future<void> logInWithToken({required String token}) async {
+    await Future.delayed(
+      const Duration(milliseconds: 300),
+      () => _controller.add(AuthenticationStatus.authenticated),
+    );
+  }
+
   void logOut() {
     _controller.add(AuthenticationStatus.unauthenticated);
   }
