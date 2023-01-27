@@ -43,107 +43,54 @@ class _HomePageState extends State<HomePage> {
     'Salir',
   ];
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title[_selectedIndex]),
-        centerTitle: false,
-        leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
-          onPressed: () => setState(() {
-            showNavigationBar = !showNavigationBar;
-          }),
-        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: const Icon(Icons.account_balance, color: Colors.black,),
+        title: Text(title[_selectedIndex], style: const TextStyle(color: Colors.black),),
+        centerTitle: true,
+        actions: const [Icon(Icons.supervised_user_circle, color: Colors.black,)],
       ),
-      body: SafeArea(
-          child: Stack(
-        children: <Widget>[
-          list[_selectedIndex],
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Visibility(
-              visible: showNavigationBar,
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: NavigationRail(
-                  selectedIndex: _selectedIndex,
-                  elevation: 10,
-                  trailing: Row(
-                    children: const [
-                      Icon(Icons.logout),
-                      Text('Salir'),
-                    ],
-                  ),
-                  extended: true,
-                  backgroundColor: Colors.white,
-                  selectedIconTheme: const IconThemeData(
-                    color: Colors.purple,
-                    size: 30,
-                  ),
-                  unselectedIconTheme: const IconThemeData(
-                    color: Colors.grey,
-                    size: 20,
-                  ),
-                  selectedLabelTextStyle: const TextStyle(
-                    color: Colors.purple,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  unselectedLabelTextStyle: const TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.normal,
-                  ),
-                  onDestinationSelected: (int index) {
-                    setState(() {
-                      _selectedIndex = index;
-                      showNavigationBar = !showNavigationBar;
-                    });
-                  },
-                  labelType: NavigationRailLabelType.none,
-                  destinations: const [
-                    NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      selectedIcon: Icon(Icons.home),
-                      label: Text('Inicio'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.calendar_month_outlined),
-                      selectedIcon: Icon(Icons.calendar_month),
-                      label: Text('Calendario de reservas'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.message_outlined),
-                      selectedIcon: Icon(Icons.message),
-                      label: Text('Mensajes y avisos'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.how_to_vote_outlined),
-                      selectedIcon: Icon(Icons.how_to_vote),
-                      label: Text('Expensas'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.how_to_vote_outlined),
-                      selectedIcon: Icon(Icons.how_to_vote),
-                      label: Text('Votaciones'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.rule_outlined),
-                      selectedIcon: Icon(Icons.rule),
-                      label: Text('Reglamentos'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.help_outline),
-                      selectedIcon: Icon(Icons.help),
-                      label: Text('Ayuda y contactos'),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
+            label: 'Reservas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Comunicados',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.how_to_vote),
+            label: 'Votaciones',
           ),
         ],
-      )),
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            list[_selectedIndex],
+          ],
+        ),
+      ),
     );
   }
 }
